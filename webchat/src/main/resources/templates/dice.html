@@ -33,7 +33,7 @@
 <script src="../static/webstomp.min.js" th:src="@{/webstomp.min.js}"></script>
 
 <script>
-    let socket = new SockJS('http://127.0.0.1:8080/ws');
+    let socket = new SockJS('todo:url');
     let stompClient = webstomp.over(socket);
 
     let values = [0, 0, 0, 0, 0, 0];

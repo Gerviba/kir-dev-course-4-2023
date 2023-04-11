@@ -21,23 +21,14 @@ class ChatController(
         return "chat"
     }
 
-    @MessageMapping("/send")    // in:  /app/send
-    @SendTo("/topic/messages")  // out: /topic/messages
-    fun handleMessage(message: ChatMessage, @Header("simpSessionId") sessionId: String): ChatMessage {
-        log.info("New message from {} ({}): {}", message.from, sessionId, message.content)
-        return message
+    // in:  /app/send (message: ChatMessage)
+    // out: /topic/messages (ChatMessage)
+    fun handleMessage(@Header("simpSessionId") sessionId: String) {
     }
 
-    @MessageMapping("/join")     // in:  /app/join
-    @SendToUser("/topic/status") // out: /user/topic/status
-    fun handleJoins(join: JoinMessage): ChatMessage {
-        log.info("New join from {}", join.name)
-
-        messaging.convertAndSend("/topic/messages",
-            ChatMessage("SYSTEM", "${join.name} joined the chat!")
-        )
-
-        return ChatMessage("SYSTEM", "Hey ${join.name}! Welcome to the chat demo app!")
+    // in:  /app/join (join: JoinMessage)
+    // out: /user/topic/status (ChatMessage)
+    fun handleJoins() {
     }
 
 }

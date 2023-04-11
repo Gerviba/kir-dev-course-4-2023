@@ -31,9 +31,11 @@
     <form class="chat-form" id="chat-form">
         <input type="text" placeholder="Type your message..." id="message-input" autocomplete="off">
         <button type="submit">Send</button>
+        <!-- TODO: TASK 3: COMMANDS
         <button type="button" class="buttonA" onclick="sendZombie()"><span class="material-symbols-outlined">sentiment_very_dissatisfied</span></button>
         <button type="button" class="buttonB" onclick="sendStrike()"><span class="material-symbols-outlined">electric_bolt</span></button>
         <button type="button" class="buttonC" onclick="sendHeal()"><span class="material-symbols-outlined">ecg_heart</span></button>
+        -->
     </form>
 </div>
 
@@ -101,36 +103,15 @@
     });
 
     function sendZombie() {
-        stompClient.send('/app/minecraft/web-command', JSON.stringify({
-            type: 'zombie',
-            arg: '',
-            x: -21.5,
-            y: 56.1,
-            z: -112.5,
-            world: 'world'
-        }));
+        // /app/minecraft/web-command: zombie -21.5 56.1 -112.5 world
     }
 
     function sendStrike() {
-        stompClient.send('/app/minecraft/web-command', JSON.stringify({
-            type: 'strike',
-            arg: '',
-            x: -15.5,
-            y: 56,
-            z: -107.5,
-            world: 'world'
-        }));
+        // /app/minecraft/web-command: strike -15.5 56 -107.5 world
     }
 
     function sendHeal() {
-        stompClient.send('/app/minecraft/web-command', JSON.stringify({
-            type: 'heal',
-            arg: '@all',
-            x: 0,
-            y: 0,
-            z: 0,
-            world: 'world'
-        }));
+        // /app/minecraft/web-command: heal @all 0 0 0 world
     }
 
     const onMessageReceived = (message) => {

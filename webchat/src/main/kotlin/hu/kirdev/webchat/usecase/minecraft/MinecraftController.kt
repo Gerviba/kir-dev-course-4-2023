@@ -17,31 +17,20 @@ class MinecraftController(
     @GetMapping("/minecraft")
     fun minecraftIndex() = "minecraft"
 
-    // in:  /app/minecraft/web-send
-    // out: /topic/minecraft/mc-messages
-    // out: /topic/minecraft/web-messages
-    @MessageMapping("/minecraft/web-send")
-    fun receiveFromWeb(message: MinecraftChatMessage) {
-        if (message.messageType == MessageType.MESSAGE) {
-            messaging.convertAndSend("/topic/minecraft/mc-messages", message)
-            messaging.convertAndSend("/topic/minecraft/web-messages", message)
-        }
+    // in:  /app/minecraft/web-send (message: MinecraftChatMessage)
+    // out: /topic/minecraft/mc-messages (message: MinecraftChatMessage)
+    // out: /topic/minecraft/web-messages (message: MinecraftChatMessage)
+    fun receiveFromWeb() {
     }
 
-    // in:  /app/minecraft/mc-send
-    // out: /topic/minecraft/web-messages
-    @MessageMapping("/minecraft/mc-send")
-    @SendTo("/topic/minecraft/web-messages")
-    fun receiveFromMinecraft(message: MinecraftChatMessage): MinecraftChatMessage {
-        return message
+    // in:  /app/minecraft/mc-send (message: MinecraftChatMessage)
+    // out: /topic/minecraft/web-messages (message: MinecraftChatMessage)
+    fun receiveFromMinecraft() {
     }
 
-    // in:  /app/minecraft/web-command
-    // out: /topic/minecraft/mc-control
-    @MessageMapping("/minecraft/web-command")
-    @SendTo("/topic/minecraft/mc-control")
-    fun sendCommand(command: MinecraftCommand): MinecraftCommand {
-        return command
+    // in:  /app/minecraft/web-command (command: MinecraftCommand)
+    // out: /topic/minecraft/mc-control (command: MinecraftCommand)
+    fun sendCommand() {
     }
 
 }
